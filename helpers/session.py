@@ -9,23 +9,26 @@ Created on Sun Jul 30 16:42:42 2023
 from typing import Generator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from config import settings
+from helpers.config import settings
 
 
 class DbConnect:
 
-    db_engine = create_engine(settings.SUPA_URL)
+    DB_ENGINE = create_engine(settings.DB_URL)
 
-    SupaLocal = sessionmaker(
+    SESSION = sessionmaker(
         autocommit=False,
         autoflush=False,
-        bind=db_engine
+        bind=DB_ENGINE
     )
+    
+    def __init__(self):
+        pass
 
     @classmethod
-    def get_supa_db(cls) -> Generator:
+    def get_db(cls) -> Generator:
         try:
-            db = cls.SupaLocal()
+            db = cls.SESSION()
             yield db
         finally:
             db.close()
