@@ -17,7 +17,7 @@ load_dotenv()
 class Settings:
     
     DB_NAME = 'PG_Inisghts'  # This is used for the name of the backup file
-                             # and must be set manually for your DB
+                             # and must be set manually
 
     #  Variables below must be in a .env file located within same directory
     SUPA_PASSWORD = os.getenv('SUPA_PASSWORD')
@@ -27,7 +27,7 @@ class Settings:
     
     #  URL's below generated from the values above and shouldn't be changed
     SUPA_URL = f'{SUPA_PASSWORD}@{SUPA_ID}.supabase.co:{SUPA_PORT}'
-    SUPA_BACKUP_URL: str = f'postgresql://postgres:{SUPA_URL}/postgres'
+    SUPA_BACKUP_URL: str = f'postgresql://{USERNAME}:{SUPA_URL}/postgres'
     
     
 settings = Settings()
