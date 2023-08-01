@@ -20,14 +20,12 @@ class Settings:
                              # and must be set manually
 
     #  Variables below must be in a .env file located within same directory
-    SUPA_PASSWORD = os.getenv('SUPA_PASSWORD')
+    PASSWORD = os.getenv('SUPA_PASSWORD')
     SUPA_ID = os.getenv('SUPA_ID')
-    SUPA_PORT = os.getenv('SUPA_PORT')
+    DB_PORT = os.getenv('SUPA_PORT')
     USERNAME = os.getenv('SUPA_USER')
-    
-    #  URL's below generated from the values above and shouldn't be changed
-    SUPA_URL = f'{SUPA_PASSWORD}@{SUPA_ID}.supabase.co:{SUPA_PORT}'
-    SUPA_BACKUP_URL: str = f'postgresql://{USERNAME}:{SUPA_URL}/postgres'
+    #  URL below generated from the ID above and shouldn't be changed
+    SUPA_URL = f'db.{SUPA_ID}.supabase.co'
     
     
 settings = Settings()

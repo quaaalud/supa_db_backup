@@ -13,13 +13,31 @@ from helpers.config import settings
 class DbConnect:
 
     DB_NAME = settings.DB_NAME
-    DB_URL = settings.SUPA_BACKUP_URL
+    DB_URL = settings.SUPA_URL
+    DB_USER = settings.USERNAME
+    DB_PASSWORD = settings.PASSWORD
+    DB_PORT = settings.DB_PORT
     
-    _dirpath = Path(__file__).parents[1]
+    _DATE_STR = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    _FILE_DIR = Path(__file__).parent
+    SAVE_DIR = Path(_FILE_DIR, 'backups') 
     
-    SAVE_DIR = Path(_dirpath, 'backups') 
-    SAVE_PATH = Path(SAVE_DIR, f'{DB_NAME} {datetime.now()}.sql')
+    
+    COMMAND_LIST = [
+        'pg_dump', 
+        f'-h {DB_URL}',
+        f'-p {DB_PORT}',
+        f'-d {DB_PASSWORD}',
+        f'-U {DB_USER}'
+    ]
     
     def __init__(self):
         self.SAVE_DIR.mkdir(parents=False, exist_ok=True)
-        pass
+        self.save_path = str(
+            Path(
+                self.SAVE_DIR,
+                f'{self.DB_NAME}-{self._DATE_STR}.sql'
+            )
+        )
+        self.connect_str = ' '.join(self.COMMAND_LIST)
+        
