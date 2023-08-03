@@ -5,6 +5,13 @@ import sys
 import subprocess
 from pathlib import Path
 
+try:
+    import dotenv
+except ImportError:
+    subprocess.check_call(
+        [sys.executable, "-m", "pip", "install", "python-dotenv"]
+    )
+
 if str(Path(__file__).parent) not in sys.path:
     sys.path.append(str(Path(__file__).parent))
 
