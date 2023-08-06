@@ -3,7 +3,7 @@ venv/
 .env
 *.env
 .db
-/database/
+helpers/database/
 
 
 # Byte-compiled / optimized / DLL files
